@@ -3,7 +3,7 @@ name: cliente_pipeline
 
 steps:
 - name: nodejs-build
-  image: node:13.9.0
+  image: node:13.8.0
   commands:
   - npm i
   - npm run build:test
