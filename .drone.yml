@@ -6,7 +6,7 @@ steps:
   image: node:13.8.0
   commands:
   - npm i
-  - npm run build:test
+  - npm run build --prod
   when:
     branch:
       - master
