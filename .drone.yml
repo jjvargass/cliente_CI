@@ -2,11 +2,32 @@ kind: pipeline
 name: cliente_pipeline
 
 steps:
-- name: nodejs-build
+- name: nodejs_build
   image: node:13.8.0
   commands:
-  - npm i
-  - npm run-script build
+  # - npm i
+  # - npm run-script build
+  - echo "build"
   when:
     branch:
       - master
+    event:
+    - push
+
+- name: publish_to_S3
+  image: plugins/s3
+  settings:
+    bucket: frontendjjvargass
+    access_key:
+      from_secret: aws_access_key_id
+    secret_key:
+      from_secret: aws_secret_access_key
+    region: us-east-1
+    source: dist/**/*
+    target: /${DRONE_REPO_NAME}
+    strip_prefix: dist/
+  when:
+    branch:
+    - master
+    event:
+    - push
