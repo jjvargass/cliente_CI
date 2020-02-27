@@ -1,0 +1,12 @@
+kind: pipeline
+name: cliente_pipeline
+
+steps:
+- name: nodejs-build
+  image: node:13.9.0
+  commands:
+  - npm i
+  - npm run build:test
+  when:
+    branch:
+      - test
